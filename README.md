@@ -31,5 +31,7 @@ Adding and removing friend to a user
 ![sample](https://github.com/d104601/social_network_api/blob/main/demo/friendDemo.gif)
 
 Adding and removing reaction to a thought
+![sample](https://github.com/d104601/social_network_api/blob/main/demo/reactionDemo.gif)
 
 DELETE request to delete a user and thought
+![sample](https://github.com/d104601/social_network_api/blob/main/demo/deleteDemo.gif)
