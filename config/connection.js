@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Wrap Mongoose around local connection to MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/데이터베이스이름', {
+mongoose.connect('mongodb://127.0.0.1:27017/socalNeteworkDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
