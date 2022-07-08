@@ -9,9 +9,9 @@ const userController = {
     getSingleUser(req, res) {
         User.findOne({ _id: req.params.userId })
         .select('-__v')
-        .then((user) => {
-            if(user) {
-                res.json(user);
+        .then((data) => {
+            if(data) {
+                res.json(data);
             }
             else {
                 res.status(404).json({ message: "No user with the id" });
@@ -21,7 +21,7 @@ const userController = {
     },
     addUser(req, res) {
         User.create(req.body)
-        .then((dbUserData) => res.json(dbUserData))
+        .then((data) => res.json(data))
         .catch((err) => res.status(500).json(err));
     },
     updateUser(req, res) {
@@ -29,9 +29,9 @@ const userController = {
             { _id: req.params.userId },
             req.body
         )
-        .then((user) => {
-            if(user) {
-                res.json(user);
+        .then((data) => {
+            if(data) {
+                res.json(data);
             }
             else {
                 res.status(404).json({ message: "No user with the id" });
@@ -43,9 +43,9 @@ const userController = {
         User.findOneAndDelete(
             { _id: req.params.userId }
         )
-        .then((user) => {
-            if(user) {
-                res.json(user);
+        .then((data) => {
+            if(data) {
+                res.json(data);
             }
             else {
                 res.status(404).json({ message: "No user with the id" });
@@ -58,9 +58,9 @@ const userController = {
             { _id: req.params.userId },
             { $addToSet: { friends: req.params.friendId }}
         )
-        .then((user) => {
-            if(user) {
-                res.json(user);
+        .then((data) => {
+            if(data) {
+                res.json(data);
             }
             else {
                 res.status(404).json({ message: "No user with the id" });
@@ -73,9 +73,9 @@ const userController = {
             { _id: req.params.userId },
             { $pull: { friends: req.params.friendId }}
         )
-        .then((user) => {
-            if(user) {
-                res.json(user);
+        .then((data) => {
+            if(data) {
+                res.json(data);
             }
             else {
                 res.status(404).json({ message: "No user with the id" });
