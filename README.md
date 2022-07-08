@@ -15,3 +15,21 @@ npm start
 ```
 
 ## Demonstration
+Starting server application
+![sample](https://github.com/d104601/social_network_api/blob/main/demo/startDemo.gif)
+
+GET request to show all users, a single user, all thoughts, and a single thought
+![sample](https://github.com/d104601/social_network_api/blob/main/demo/getDemo.gif)
+
+POST request to add a new user and then add a thought from new user
+![sample](https://github.com/d104601/social_network_api/blob/main/demo/postDemo.gif)
+
+PUT request to update user and thought
+![sample](https://github.com/d104601/social_network_api/blob/main/demo/putDemo.gif)
+
+Adding and removing friend to a user
+![sample](https://github.com/d104601/social_network_api/blob/main/demo/friendDemo.gif)
+
+Adding and removing reaction to a thought
+
+DELETE request to delete a user and thought
