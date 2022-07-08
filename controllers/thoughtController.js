@@ -1,13 +1,13 @@
-const Thought = require("../models/Thought");
+import { find, findOne, create, findOneAndUpdate, findOneAndDelete } from "../models/Thought";
 
 const thoughtController = {
     getThoughts(req, res) {
-        Thought.find()
+        find()
         .then((thoughts) => res.json(thoughts))
         .catch((err) => res.status(500).json(err));
     },
     getSingleThought(req, res) {
-        Thought.findOne({ _id: req.params.thoughtId })
+        findOne({ _id: req.params.thoughtId })
         .select('-__v')
         .then((thought) => {
             if(thought) {
@@ -20,12 +20,12 @@ const thoughtController = {
         .catch((err) => res.status(500).json(err));
     },
     addThought(req, res) {
-        Thought.create(req.body)
+        create(req.body)
         .then((thought) => res.json(thought))
         .catch((err) => res.status(500).json(err));
     },
     updateThought(req, res) {
-        Thought.findOneAndUpdate(
+        findOneAndUpdate(
             { _id: req.params.thoughtId },
             req.body
         )
@@ -40,7 +40,7 @@ const thoughtController = {
         .catch((err) => res.status(500).json(err));
     },
     removeThought(req, res) {
-        Thought.findOneAndDelete(
+        findOneAndDelete(
             { _id: req.params.thoughtId }
         )
         .then((data) => {
@@ -54,7 +54,7 @@ const thoughtController = {
         .catch((err) => res.status(500).json(err));
     },
     addReaction(req, res) {
-        Thought.findOneAndUpdate(
+        findOneAndUpdate(
             { _id: req.params.thoughtId },
             { $addToSet: { reactions: req.body }}
         )
@@ -69,7 +69,7 @@ const thoughtController = {
         .catch((err) => res.status(500).json(err));        
     },
     removeReaction(req, res) {
-        Thought.findOneAndUpdate(
+        findOneAndUpdate(
             { _id: req.params.thoughtId },
             { $pull: { reactions: { reactionId: req.params.reactionId }}}
         )
@@ -85,4 +85,4 @@ const thoughtController = {
     }
 };
 
-module.exports = thoughtController;
+export default thoughtController;
