@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const {User, Thought} = require("../models");
 
 const userController = {
     getUsers(req, res) {
@@ -45,7 +45,9 @@ const userController = {
         )
         .then((data) => {
             if(data) {
-                res.json(data);
+                return Thought.deleteMany(
+                    { username : data.username }
+                );
             }
             else {
                 res.status(404).json({ message: "No user with the id" });
