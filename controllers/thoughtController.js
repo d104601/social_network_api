@@ -1,17 +1,17 @@
-import { find, findOne, create, findOneAndUpdate, findOneAndDelete } from "../models/Thought";
+const { Thought, User } = require('../models');
 
 const thoughtController = {
     getThoughts(req, res) {
-        find()
-        .then((thoughts) => res.json(thoughts))
+        Thought.find({})
+        .then((data) => res.json(data))
         .catch((err) => res.status(500).json(err));
     },
     getSingleThought(req, res) {
-        findOne({ _id: req.params.thoughtId })
+        Thought.findOne({ _id: req.params.thoughtId })
         .select('-__v')
-        .then((thought) => {
-            if(thought) {
-                res.json(thought);
+        .then((data) => {
+            if(data) {
+                res.json(data);
             }
             else {
                 res.status(404).json({ message: "No thought with the id" });
@@ -20,12 +20,25 @@ const thoughtController = {
         .catch((err) => res.status(500).json(err));
     },
     addThought(req, res) {
-        create(req.body)
-        .then((thought) => res.json(thought))
+        Thought.create(req.body)
+        .then((data) => {
+            return User.findOneAndUpdate(
+                {_id: req.body.userId},
+                {$push: { thoughts: data._id}}
+            );
+        })
+        .then((data) => {
+            if(data) {
+                res.json(data);
+            }
+            else {
+                res.status(404).json({ message: "No user with the id"});
+            }
+        })
         .catch((err) => res.status(500).json(err));
     },
     updateThought(req, res) {
-        findOneAndUpdate(
+        Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
             req.body
         )
@@ -40,7 +53,7 @@ const thoughtController = {
         .catch((err) => res.status(500).json(err));
     },
     removeThought(req, res) {
-        findOneAndDelete(
+        Thought.findOneAndDelete(
             { _id: req.params.thoughtId }
         )
         .then((data) => {
@@ -54,7 +67,7 @@ const thoughtController = {
         .catch((err) => res.status(500).json(err));
     },
     addReaction(req, res) {
-        findOneAndUpdate(
+        Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
             { $addToSet: { reactions: req.body }}
         )
@@ -69,7 +82,7 @@ const thoughtController = {
         .catch((err) => res.status(500).json(err));        
     },
     removeReaction(req, res) {
-        findOneAndUpdate(
+        Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
             { $pull: { reactions: { reactionId: req.params.reactionId }}}
         )
@@ -85,4 +98,4 @@ const thoughtController = {
     }
 };
 
-export default thoughtController;
+module.exports = thoughtController;
